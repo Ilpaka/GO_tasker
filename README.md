@@ -1,5 +1,7 @@
 # GO_tasker
 
+Публичный репозиторий: https://github.com/Ilpaka/GO_tasker
+
 Минимальный **CLI-трекер задач** на Go: добавление, просмотр, отметка «выполнено», удаление. Данные хранятся в **JSON-файле** между запусками.
 
 ## Цель проекта
@@ -92,7 +94,7 @@ go run ./cmd/tasker list
 
 ### GitHub Project
 
-Для проекта заведена доска с задачами (минимум 6): планирование этапов от каркаса репозитория до Docker. Поля: **Priority**, **Start Date**, **End Date**, **Original Estimate**; статусы: **Proposed**, **Active**, **Resolved**, **Completed**. Подробнее — в отчёте и таблице задач ниже.
+Для проекта заведена доска с задачами (минимум 6): планирование этапов от каркаса репозитория до Docker. Поля: **Priority**, **Start Date**, **End Date**, **Original Estimate**; статусы: **Proposed**, **Active**, **Resolved**, **Completed**. Через веб-интерфейс GitHub: **Projects → New project** (Table), привязка к репозиторию **Ilpaka/GO_tasker**, импорт или ручное добавление пунктов из [списка задач](https://github.com/Ilpaka/GO_tasker/issues). Для автоматизации в CLI позже выполните `gh auth refresh -s project,read:project`.
 
 ---
 

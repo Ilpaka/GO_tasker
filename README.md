@@ -78,9 +78,40 @@ go run ./cmd/tasker list
 
 ## Работа с Git
 
-Репозиторий оформлен как учебный: есть **осмысленные коммиты** на русском, разделение работы по **веткам** и слияние в `main`.
+Репозиторий оформлен как учебный: есть **осмысленные коммиты** на русском, разделение работы по **веткам** и слияние в `main`. Достаточно обычного **`git`** и браузера на GitHub — **GitHub CLI (`gh`) не нужен**.
 
-### Ветки
+### Клонирование и отправка изменений (только git)
+
+Если репозиторий уже есть на GitHub:
+
+```bash
+git clone https://github.com/Ilpaka/GO_tasker.git
+cd GO_tasker
+```
+
+Свой форк или другой URL подставьте вместо ссылки выше.
+
+Работа в новой ветке и push:
+
+```bash
+git checkout main
+git pull
+git checkout -b feature/моя-ветка
+# правки, затем:
+git add .
+git commit -m "Краткое осмысленное сообщение на русском"
+git push -u origin feature/моя-ветка
+```
+
+Слияние локально (без PR), если нужно у себя:
+
+```bash
+git checkout main
+git merge --no-ff feature/моя-ветка -m "Слияние feature/моя-ветка"
+git push origin main
+```
+
+### Ветки в этом проекте
 
 - **`main`** — стабильная версия после слияний.
 - **`feature/cli-commands`** — интерфейс командной строки и логика команд.
@@ -88,13 +119,17 @@ go run ./cmd/tasker list
 
 Сначала в `main` появились модуль и хранилище, затем в feature-ветке — CLI, после merge — Docker-ветка, затем документация в `main`.
 
-### Pull Request
+### Pull Request (через сайт GitHub, без gh)
 
-Пример оформления (см. раздел «Текст Pull Request» в отчёте к заданию): слияние **`feature/docker-support` → `main`**, в PR описаны файлы Docker и проверка запуска.
+После `git push` откройте репозиторий в браузере — GitHub предложит **Compare & pull request** для новой ветки. Либо: **Pull requests → New pull request**, база **`main`**, сравнение с вашей веткой, заголовок и описание на русском, затем **Create pull request** и **Merge pull request**.
 
-### GitHub Project
+Пример по смыслу задания: слияние **`feature/docker-support` → `main`**, в описании PR — какие файлы Docker добавлены и как проверяли сборку.
 
-Для проекта заведена доска с задачами (минимум 6): планирование этапов от каркаса репозитория до Docker. Поля: **Priority**, **Start Date**, **End Date**, **Original Estimate**; статусы: **Proposed**, **Active**, **Resolved**, **Completed**. Через веб-интерфейс GitHub: **Projects → New project** (Table), привязка к репозиторию **Ilpaka/GO_tasker**, импорт или ручное добавление пунктов из [списка задач](https://github.com/Ilpaka/GO_tasker/issues). Для автоматизации в CLI позже выполните `gh auth refresh -s project,read:project`.
+### GitHub Project (через сайт)
+
+Доска с задачами (минимум 6 этапов): **Projects → New project** (шаблон **Table**), при необходимости привяжите к репозиторию. Поля в настройках проекта: **Priority**, **Start Date**, **End Date**, **Original Estimate**; статусы колонок или поля статуса: **Proposed**, **Active**, **Resolved**, **Completed**.
+
+Готовые пункты можно завести вручную или добавить существующие [issues](https://github.com/Ilpaka/GO_tasker/issues) в проект кнопкой **Add item** на доске.
 
 ---
 

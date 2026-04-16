@@ -1,0 +1,13 @@
+# Минимальная настройка для учебного CLI: только нужные проверки.
+run:
+  timeout: 2m
+
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gofmt
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused

@@ -29,6 +29,10 @@ GO_tasker/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .dockerignore
+├── Makefile             fmt / lint / check
+├── .golangci.yml        настройки golangci-lint
+├── .pre-commit-config.yaml
+├── step_notes.txt       короткие заметки по доработке (для себя)
 ├── go.mod
 ├── .gitignore
 └── README.md
@@ -75,6 +79,32 @@ go run ./cmd/tasker remove 1
 export GO_TASKER_DATA=/tmp/мои_задачи.json
 go run ./cmd/tasker list
 ```
+
+## Форматирование, линтер и pre-commit
+
+Отдельного конфига для форматтера в Go не нужно: стиль задаёт встроенный **gofmt**, а запускать удобно командой **`go fmt ./...`** (она как раз прогоняет gofmt по пакетам проекта).
+
+**Линтер:** [golangci-lint](https://golangci-lint.run/) с коротким файлом `.golangci.yml`: включены только `errcheck`, `govet`, `staticcheck`, `unused`, `ineffassign` и проверка **`gofmt`** (чтобы забытое форматирование не проскочило в репозиторий). Раздувать список линтеров не стоит — для маленького CLI хватает этого набора.
+
+**Pre-commit:** один раз ставится сам фреймворк (`pip install pre-commit` или как у вас принято в Python-окружении), затем в корне репозитория:
+
+```bash
+cd GO_tasker
+pre-commit install
+```
+
+Перед каждым `git commit` запустятся хуки из `.pre-commit-config.yaml`: обрезка хвостовых пробелов и перевод строки в конце файла, лёгкая проверка YAML, лимит на огромные файлы, **`go fmt`** по Go-файлам и **`golangci-lint`**. Если что-то падает, коммит не создаётся — правите вывод, снова `git add`, повторяете коммит.
+
+Проверить всё вручную без коммита:
+
+```bash
+make fmt          # go fmt ./...
+make lint         # golangci-lint run ./...
+make check        # fmt и lint подряд
+pre-commit run --all-files   # то же по смыслу, что увидит хук, по всему дереву
+```
+
+Поставить `golangci-lint`, если его ещё нет: с [страницы релизов](https://github.com/golangci/golangci-lint/releases) под свою ОС или через `go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest` (бинарник окажется в `$(go env GOPATH)/bin`, этот путь должен быть в `PATH`).
 
 ## Работа с Git
 

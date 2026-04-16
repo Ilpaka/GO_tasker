@@ -1,0 +1,11 @@
+.git
+.gitignore
+README.md
+*.md
+.DS_Store
+.idea
+.vscode
+data/tasks.json
+data/tasks.json.tmp
+/tasker
+coverage.out

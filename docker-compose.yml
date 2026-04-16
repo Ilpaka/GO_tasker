@@ -1,0 +1,16 @@
+services:
+  tasker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: go-tasker:local
+    container_name: go-tasker
+    working_dir: /app
+    volumes:
+      # Задачи сохраняются в ./data на хосте (как при обычном запуске)
+      - ./data:/app/data
+    stdin_open: true
+    tty: true
+    # По умолчанию показываем справку; для работы передайте команду:
+    # docker compose run --rm tasker list
+    command: ["help"]
